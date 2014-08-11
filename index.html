@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>RNRFA by cvitolo</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>RNRFA</h1>
+        <h2>UK National River Flow Archive data from R</h2>
+        <a href="https://github.com/cvitolo/r_rnrfa" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive"><span class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
+
+<p>The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.</p>
+
+<p>There is currently an API under development that in future should provide access to the following services: metadata catalogue, catalogue filters based on a geographical bounding-box, catalogue filters based on metadata entries, gauged daily data for about 400 stations available in WaterML2 format, the OGC standard used to describe hydrological time series.  </p>
+
+<p>The information returned by the first three services is in JSON format, while the last one is an XML variant.</p>
+
+<p>The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
+
+<h3>
+<a name="basics" class="anchor" href="#basics"><span class="octicon octicon-link"></span></a>Basics</h3>
+
+<p>The package rnrfa can be installed via devtools:</p>
+
+<div class="highlight highlight-R"><pre><span class="kn">library</span><span class="p">(</span>devtools<span class="p">)</span>
+install_github<span class="p">(</span><span class="s">"r_rnrfa"</span><span class="p">,</span> username <span class="o">=</span> <span class="s">"cvitolo"</span><span class="p">,</span> subdir <span class="o">=</span> <span class="s">"rnrfa"</span><span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>rnrfa<span class="p">)</span>
+</pre></div>
+
+<h1>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h1>
+
+<h2>
+<a name="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations"><span class="octicon octicon-link"></span></a>List of monitoring stations</h2>
+
+<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called GetStationSummary(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
+
+<p>Those entries are briefly described as follows:</p>
+
+<ul>
+<li>"id" = Station identification number</li>
+<li>"name" = Name of the station</li>
+<li>"location" = Area in which the station is located</li>
+<li>"river" = River catchment</li>
+<li>"stationDescription" = General station description, containing information on weirs, ratings, etc.</li>
+<li>"catchmentDescription" = Information on topography, geology, land cover, etc.</li>
+<li>"hydrometricArea" = UK hydrometric area identification number, see figure \ref{fig:hydrometricAreas}</li>
+<li>"operator" = UK measuring authorities, see figure \ref{fig:operators}</li>
+<li>"haName" = Hydrometric Area name</li>
+<li>"gridReference" = OS Grid Reference number</li>
+<li>"stationType" = Type of station (e.g. flume, weir, etc.)</li>
+<li>"catchmentArea" = Catchment area in (Km^2)</li>
+<li>"gdfStart" = Year in which recordings started</li>
+<li>"gdfEnd" = Year in which recordings ended</li>
+<li>"farText" = Information on the regime (e.g. natural, regulated, etc.)</li>
+<li>"categories" = various tags (e.g. FEH_POOLING, FEH_QMED, HIFLOWS_INCLUDED)</li>
+<li>"altitude" = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.</li>
+<li>"sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.</li>
+</ul><h2>
+<a name="station-filtering" class="anchor" href="#station-filtering"><span class="octicon octicon-link"></span></a>Station filtering</h2>
+
+<p>The same function GetStationSummary() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Filter stations based on bounding box</span>
+someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> 
+                                  lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
+                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> 
+                                  latMax<span class="o">=</span><span class="m">52.52</span><span class="p">)</span>
+
+<span class="c1"># Filter stations belonging to a certain hydrometric area</span>
+someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>metadataColumn<span class="o">=</span><span class="s">"haName"</span><span class="p">,</span>
+                                  entryValue<span class="o">=</span><span class="s">"Wye (Hereford)"</span><span class="p">)</span>
+
+<span class="c1"># Filter based on bounding box &amp; metadata strings</span>
+someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
+                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
+                                  metadataColumn<span class="o">=</span><span class="s">"haName"</span><span class="p">,</span>
+                                  entryValue<span class="o">=</span><span class="s">"Wye (Hereford)"</span><span class="p">)</span>
+
+<span class="c1"># Filter stations based on threshold</span>
+someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
+                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
+                                  metadataColumn<span class="o">=</span><span class="s">"catchmentArea"</span><span class="p">,</span>
+                                  entryValue<span class="o">=</span><span class="s">"&gt;1"</span><span class="p">)</span>
+
+<span class="c1"># Filter based on minimum reconding years</span>
+someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
+                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
+                                  metadataColumn<span class="o">=</span><span class="s">"catchmentArea"</span><span class="p">,</span>
+                                  entryValue<span class="o">=</span><span class="s">"&gt;1"</span><span class="p">,</span>
+                                  minRec<span class="o">=</span><span class="m">30</span><span class="p">)</span>
+</pre></div>
+
+<h2>
+<a name="conversions" class="anchor" href="#conversions"><span class="octicon octicon-link"></span></a>Conversions</h2>
+
+<p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Convert OS Grid reference to BNG</span>
+OSGParse<span class="p">(</span><span class="s">"SN853872"</span><span class="p">)</span>
+</pre></div>
+
+<p>The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Convert BNG to WSGS84</span>
+OSG2LatLon<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">285300</span><span class="p">,</span><span class="m">287200</span><span class="p">))</span>
+</pre></div>
+
+<p>Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. </p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Convert OS Grid reference to WGS84 </span>
+OSG2LatLon<span class="p">(</span>OSGParse<span class="p">(</span><span class="s">"SN853872"</span><span class="p">))</span>
+
+<span class="c1"># multiple entries </span>
+OSG2LatLon<span class="p">(</span>OSGParse<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">"SN831869"</span><span class="p">,</span><span class="s">"SN829838"</span><span class="p">,</span><span class="s">"SN824853"</span><span class="p">,</span><span class="s">"SN824842"</span><span class="p">,</span><span class="s">"SN826854"</span><span class="p">)))</span>
+</pre></div>
+
+<h2>
+<a name="interactive-map-and-station-details" class="anchor" href="#interactive-map-and-station-details"><span class="octicon octicon-link"></span></a>Interactive map and station details</h2>
+
+<p>An interactive map of selected stations can be generated with the following commands:</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Generate a map to show the location of selected stations</span>
+myStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>
+                                lonMax <span class="o">=</span> <span class="m">1.0</span><span class="p">,</span> 
+                                latMin <span class="o">=</span> <span class="m">50</span><span class="p">,</span> 
+                                latMax <span class="o">=</span> <span class="m">51</span><span class="p">)</span>
+
+GenerateMap<span class="p">(</span> myStations <span class="p">)</span>
+</pre></div>
+
+<p>The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Choose a station by its id number</span>
+stationID <span class="o">&lt;-</span> <span class="m">54022</span>
+
+<span class="c1"># Search data/metadata in the waterml2 service</span>
+s <span class="o">&lt;-</span> SearchNRFA<span class="p">(</span>stationID<span class="p">)</span>
+</pre></div>
+
+<p>Once stations information is fetched, metadata is returned as follows:</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># extract only important info </span>
+s<span class="o">$</span>Metadata
+</pre></div>
+
+<p>The time series can be plotted as shown below.</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Extract last year of recordings from timeseries data</span>
+<span class="kn">library</span><span class="p">(</span>zoo<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ts <span class="o">&lt;-</span> s<span class="o">$</span>TS<span class="p">[</span><span class="m">16490</span><span class="o">:</span><span class="m">16855</span><span class="p">]</span> 
+myTS <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span><span class="s">"Date"</span><span class="o">=</span>index<span class="p">(</span>ts<span class="p">),</span>
+                   <span class="s">"Value"</span><span class="o">=</span>coredata<span class="p">(</span>ts<span class="p">)</span> <span class="p">)</span>
+
+<span class="c1"># plot the time series</span>
+ggplot<span class="p">(</span>myTS<span class="p">,</span> aes<span class="p">(</span>Date<span class="p">,</span> Value<span class="p">))</span> <span class="o">+</span> 
+       geom_line<span class="p">(</span>size<span class="o">=</span><span class="m">0.2</span><span class="p">)</span> <span class="o">+</span> 
+       xlab<span class="p">(</span><span class="s">""</span><span class="p">)</span> <span class="o">+</span> ylab<span class="p">(</span><span class="s">"Daily discharge [m3/s]"</span><span class="p">)</span> <span class="o">+</span>
+       ggtitle<span class="p">(</span><span class="kp">paste</span><span class="p">(</span>s<span class="o">$</span>Metadata<span class="o">$</span>stationName<span class="p">,</span>
+                     <span class="s">" (Station ID: "</span><span class="p">,</span>stationID<span class="p">,</span><span class="s">")\n"</span><span class="p">,</span>
+                     sep<span class="o">=</span><span class="s">""</span><span class="p">))</span>
+</pre></div>
+
+<h3>
+<a name="terms-and-conditions" class="anchor" href="#terms-and-conditions"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
+
+<p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://www.ceh.ac.uk/data/nrfa/data/data_terms.html">http://www.ceh.ac.uk/data/nrfa/data/data_terms.html</a> </p>
+
+<p>This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.</p>
+
+<h1>
+<a name="leave-your-feedback" class="anchor" href="#leave-your-feedback"><span class="octicon octicon-link"></span></a>Leave your feedback</h1>
+
+<p>I would greatly appreciate if you could leave your feedbacks either via email (<a href="mailto:cvitolodev@gmail.com">cvitolodev@gmail.com</a>) or taking a short survey (<a href="https://www.surveymonkey.com/s/GTGH8RX">https://www.surveymonkey.com/s/GTGH8RX</a>).</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/cvitolo/r_rnrfa/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/cvitolo/r_rnrfa/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/cvitolo/r_rnrfa"></a> is maintained by <a href="https://github.com/cvitolo">cvitolo</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-44379190-3");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
