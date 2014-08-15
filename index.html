@@ -163,7 +163,7 @@ s <span class="o">&lt;-</span> SearchNRFA<span class="p">(</span>stationID<span 
 <p>Once stations information is fetched, metadata is returned as follows:</p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># extract only important info </span>
-s<span class="o">$</span>Metadata
+s<span class="o">$</span>wmlInfo
 </pre></div>
 
 <p>The time series can be plotted as shown below.</p>
@@ -171,7 +171,7 @@ s<span class="o">$</span>Metadata
 <div class="highlight highlight-R"><pre><span class="c1"># Extract last year of recordings from timeseries data</span>
 <span class="kn">library</span><span class="p">(</span>zoo<span class="p">)</span>
 <span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
-ts <span class="o">&lt;-</span> s<span class="o">$</span>TS<span class="p">[</span><span class="m">16490</span><span class="o">:</span><span class="m">16855</span><span class="p">]</span> 
+ts <span class="o">&lt;-</span> s<span class="o">$</span>wmlTS<span class="p">[</span><span class="m">16490</span><span class="o">:</span><span class="m">16855</span><span class="p">]</span> 
 myTS <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class="p">(</span><span class="s">"Date"</span><span class="o">=</span>index<span class="p">(</span>ts<span class="p">),</span>
                    <span class="s">"Value"</span><span class="o">=</span>coredata<span class="p">(</span>ts<span class="p">)</span> <span class="p">)</span>
 
@@ -179,7 +179,7 @@ myTS <span class="o">&lt;-</span> <span class="kt">data.frame</span><span class=
 ggplot<span class="p">(</span>myTS<span class="p">,</span> aes<span class="p">(</span>Date<span class="p">,</span> Value<span class="p">))</span> <span class="o">+</span> 
        geom_line<span class="p">(</span>size<span class="o">=</span><span class="m">0.2</span><span class="p">)</span> <span class="o">+</span> 
        xlab<span class="p">(</span><span class="s">""</span><span class="p">)</span> <span class="o">+</span> ylab<span class="p">(</span><span class="s">"Daily discharge [m3/s]"</span><span class="p">)</span> <span class="o">+</span>
-       ggtitle<span class="p">(</span><span class="kp">paste</span><span class="p">(</span>s<span class="o">$</span>Metadata<span class="o">$</span>stationName<span class="p">,</span>
+       ggtitle<span class="p">(</span><span class="kp">paste</span><span class="p">(</span>s<span class="o">$</span>wmlInfo<span class="o">$</span>stationName<span class="p">,</span>
                      <span class="s">" (Station ID: "</span><span class="p">,</span>stationID<span class="p">,</span><span class="s">")\n"</span><span class="p">,</span>
                      sep<span class="o">=</span><span class="s">""</span><span class="p">))</span>
 </pre></div>
