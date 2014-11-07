@@ -29,7 +29,7 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a name="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive"><span class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
+<a id="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" aria-hidden="true"><span class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
 
 <p>The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.</p>
 
@@ -40,30 +40,27 @@
 <p>The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
 
 <h3>
-<a name="basics" class="anchor" href="#basics"><span class="octicon octicon-link"></span></a>Basics</h3>
+<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
 
 <p>The stable version (preferred option) of rnrfa is available from CRAN (<a href="http://www.cran.r-project.org/web/packages/rnrfa/index.html">http://www.cran.r-project.org/web/packages/rnrfa/index.html</a>):</p>
 
-<div class="highlight highlight-R"><pre>install.packages<span class="p">(</span><span class="s">"rnrfa"</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-R"><pre>install.packages(<span class="s2">"rnrfa"</span>)</pre></div>
 
 <p>The development version is, instead, on github and can be installed via devtools:</p>
 
-<div class="highlight highlight-R"><pre><span class="kn">library</span><span class="p">(</span>devtools<span class="p">)</span>
-install_github<span class="p">(</span><span class="s">"r_rnrfa"</span><span class="p">,</span> username <span class="o">=</span> <span class="s">"cvitolo"</span><span class="p">,</span> subdir <span class="o">=</span> <span class="s">"rnrfa"</span><span class="p">)</span>
-<span class="kn">library</span><span class="p">(</span>rnrfa<span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-R"><pre>library(<span class="nv">devtools</span>)
+install_github(<span class="s2">"cvitolo/r_rnrfa"</span>, <span class="nv">subdir</span> <span class="o">=</span> <span class="s2">"rnrfa"</span>)
+library(<span class="nv">rnrfa</span>)</pre></div>
 
-<p>Source additional function GenerateMap:</p>
+<p>Source the additional function GenerateMap():</p>
 
-<div class="highlight highlight-R"><pre>source_gist<span class="p">(</span><span class="s">"https://gist.github.com/cvitolo/f9d12402956b88935c38"</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-R"><pre>source_gist(<span class="s2">"https://gist.github.com/cvitolo/f9d12402956b88935c38"</span>)</pre></div>
 
 <h1>
-<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h1>
+<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions</h1>
 
 <h2>
-<a name="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations"><span class="octicon octicon-link"></span></a>List of monitoring stations</h2>
+<a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span class="octicon octicon-link"></span></a>List of monitoring stations</h2>
 
 <p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called GetStationSummary(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
 
@@ -88,117 +85,124 @@ install_github<span class="p">(</span><span class="s">"r_rnrfa"</span><span clas
 <li>"categories" = various tags (e.g. FEH_POOLING, FEH_QMED, HIFLOWS_INCLUDED)</li>
 <li>"altitude" = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.</li>
 <li>"sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.</li>
-</ul><h2>
-<a name="station-filtering" class="anchor" href="#station-filtering"><span class="octicon octicon-link"></span></a>Station filtering</h2>
+</ul>
+
+<h2>
+<a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Station filtering</h2>
 
 <p>The same function GetStationSummary() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># Filter stations based on bounding box</span>
-someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> 
-                                  lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
-                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> 
-                                  latMax<span class="o">=</span><span class="m">52.52</span><span class="p">)</span>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">lonMin</span><span class="o">=</span><span class="o">-</span><span class="m">3.82</span>, 
+                                  <span class="nv">lonMax</span><span class="o">=</span><span class="o">-</span><span class="m">3.63</span>, 
+                                  <span class="nv">latMin</span><span class="o">=</span><span class="m">52.43</span>, 
+                                  <span class="nv">latMax</span><span class="o">=</span><span class="m">52.52</span>)
 
 <span class="c1"># Filter stations belonging to a certain hydrometric area</span>
-someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>metadataColumn<span class="o">=</span><span class="s">"haName"</span><span class="p">,</span>
-                                  entryValue<span class="o">=</span><span class="s">"Wye (Hereford)"</span><span class="p">)</span>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">metadataColumn</span><span class="o">=</span><span class="s2">"haName"</span>,
+                                  <span class="nv">entryValue</span><span class="o">=</span><span class="s2">"Wye (Hereford)"</span>)
 
 <span class="c1"># Filter based on bounding box &amp; metadata strings</span>
-someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
-                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
-                                  metadataColumn<span class="o">=</span><span class="s">"haName"</span><span class="p">,</span>
-                                  entryValue<span class="o">=</span><span class="s">"Wye (Hereford)"</span><span class="p">)</span>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">lonMin</span><span class="o">=</span><span class="o">-</span><span class="m">3.82</span>, <span class="nv">lonMax</span><span class="o">=</span><span class="o">-</span><span class="m">3.63</span>, 
+                                  <span class="nv">latMin</span><span class="o">=</span><span class="m">52.43</span>, <span class="nv">latMax</span><span class="o">=</span><span class="m">52.52</span>,
+                                  <span class="nv">metadataColumn</span><span class="o">=</span><span class="s2">"haName"</span>,
+                                  <span class="nv">entryValue</span><span class="o">=</span><span class="s2">"Wye (Hereford)"</span>)
 
 <span class="c1"># Filter stations based on threshold</span>
-someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
-                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
-                                  metadataColumn<span class="o">=</span><span class="s">"catchmentArea"</span><span class="p">,</span>
-                                  entryValue<span class="o">=</span><span class="s">"&gt;1"</span><span class="p">)</span>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">lonMin</span><span class="o">=</span><span class="o">-</span><span class="m">3.82</span>, <span class="nv">lonMax</span><span class="o">=</span><span class="o">-</span><span class="m">3.63</span>, 
+                                  <span class="nv">latMin</span><span class="o">=</span><span class="m">52.43</span>, <span class="nv">latMax</span><span class="o">=</span><span class="m">52.52</span>,
+                                  <span class="nv">metadataColumn</span><span class="o">=</span><span class="s2">"catchmentArea"</span>,
+                                  <span class="nv">entryValue</span><span class="o">=</span><span class="s2">"&gt;1"</span>)
 
 <span class="c1"># Filter based on minimum reconding years</span>
-someStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin<span class="o">=</span><span class="m">-3.82</span><span class="p">,</span> lonMax<span class="o">=</span><span class="m">-3.63</span><span class="p">,</span> 
-                                  latMin<span class="o">=</span><span class="m">52.43</span><span class="p">,</span> latMax<span class="o">=</span><span class="m">52.52</span><span class="p">,</span>
-                                  metadataColumn<span class="o">=</span><span class="s">"catchmentArea"</span><span class="p">,</span>
-                                  entryValue<span class="o">=</span><span class="s">"&gt;1"</span><span class="p">,</span>
-                                  minRec<span class="o">=</span><span class="m">30</span><span class="p">)</span>
-</pre></div>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">lonMin</span><span class="o">=</span><span class="o">-</span><span class="m">3.82</span>, <span class="nv">lonMax</span><span class="o">=</span><span class="o">-</span><span class="m">3.63</span>, 
+                                  <span class="nv">latMin</span><span class="o">=</span><span class="m">52.43</span>, <span class="nv">latMax</span><span class="o">=</span><span class="m">52.52</span>,
+                                  <span class="nv">metadataColumn</span><span class="o">=</span><span class="s2">"catchmentArea"</span>,
+                                  <span class="nv">entryValue</span><span class="o">=</span><span class="s2">"&gt;1"</span>,
+                                  <span class="nv">minRec</span><span class="o">=</span><span class="m">30</span>)
+
+<span class="c1"># Filter stations based on identification number</span>
+<span class="nv">someStations</span> <span class="o">&lt;-</span> GetStationSummary(<span class="nv">metadataColumn</span><span class="o">=</span><span class="s2">"id"</span>,
+                                  <span class="nv">entryValue</span><span class="o">=</span>c(<span class="m">3001</span>,<span class="m">3002</span>,<span class="m">3003</span>))</pre></div>
 
 <h2>
-<a name="conversions" class="anchor" href="#conversions"><span class="octicon octicon-link"></span></a>Conversions</h2>
+<a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conversions</h2>
 
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 
-<div class="highlight highlight-R"><pre><span class="c1"># Convert OS Grid reference to BNG</span>
-OSGParse<span class="p">(</span><span class="s">"SN853872"</span><span class="p">)</span>
-</pre></div>
+<div class="highlight highlight-R"><pre><span class="c1"># Where is the first catchment located?</span>
+<span class="nv">someStations</span><span class="k">$</span><span class="nv">gridReference</span>[[<span class="m">1</span>]]
+
+<span class="c1"># Convert OS Grid reference to BNG</span>
+OSGParse(<span class="s2">"NC581062"</span>)</pre></div>
 
 <p>The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.</p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># Convert BNG to WSGS84</span>
-OSG2LatLon<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">285300</span><span class="p">,</span><span class="m">287200</span><span class="p">))</span>
-</pre></div>
+OSG2LatLon(c(<span class="m">258100</span>,<span class="m">906200</span>))</pre></div>
 
 <p>Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. </p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># Convert OS Grid reference to WGS84 </span>
-OSG2LatLon<span class="p">(</span>OSGParse<span class="p">(</span><span class="s">"SN853872"</span><span class="p">))</span>
+OSG2LatLon(OSGParse(<span class="s2">"NC581062"</span>))
 
 <span class="c1"># multiple entries </span>
-OSG2LatLon<span class="p">(</span>OSGParse<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">"SN831869"</span><span class="p">,</span><span class="s">"SN829838"</span><span class="p">,</span><span class="s">"SN824853"</span><span class="p">,</span><span class="s">"SN824842"</span><span class="p">,</span><span class="s">"SN826854"</span><span class="p">)))</span>
-</pre></div>
+OSG2LatLon(OSGParse(<span class="nv">someStations</span><span class="k">$</span><span class="nv">gridReference</span>))</pre></div>
 
 <h2>
-<a name="interactive-map-and-station-details-only-available-for-github-version" class="anchor" href="#interactive-map-and-station-details-only-available-for-github-version"><span class="octicon octicon-link"></span></a>Interactive map and station details (only available for github version)</h2>
+<a id="interactive-map-and-station-details" class="anchor" href="#interactive-map-and-station-details" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive map and station details</h2>
+
+<h3>
+<a id="only-available-for-github-version" class="anchor" href="#only-available-for-github-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>(only available for github version)</h3>
 
 <p>An interactive map of selected stations can be generated with the following commands:</p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># Generate a map to show the location of selected stations</span>
-myStations <span class="o">&lt;-</span> GetStationSummary<span class="p">(</span>lonMin <span class="o">=</span> <span class="m">0.5</span><span class="p">,</span>
-                                lonMax <span class="o">=</span> <span class="m">1.0</span><span class="p">,</span> 
-                                latMin <span class="o">=</span> <span class="m">50</span><span class="p">,</span> 
-                                latMax <span class="o">=</span> <span class="m">51</span><span class="p">)</span>
-
-GenerateMap<span class="p">(</span> myStations <span class="p">)</span>
-</pre></div>
+GenerateMap( <span class="nv">someStations</span> )</pre></div>
 
 <p>The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.</p>
 
 <div class="highlight highlight-R"><pre><span class="c1"># Choose a station by its id number</span>
-stationID <span class="o">&lt;-</span> <span class="m">54022</span>
+<span class="nv">stationID</span> <span class="o">&lt;-</span> <span class="nv">someStations</span><span class="k">$</span><span class="nv">id</span>[[<span class="m">1</span>]] <span class="c1"># 3001</span>
 
 <span class="c1"># Search data/metadata in the waterml2 service</span>
-s <span class="o">&lt;-</span> SearchNRFA<span class="p">(</span>stationID<span class="p">)</span>
-</pre></div>
+<span class="nv">s</span> <span class="o">&lt;-</span> SearchNRFA(<span class="nv">stationID</span>)
 
-<p>The same function accepts multiple id numbers</p>
-
-<div class="highlight highlight-R"><pre><span class="c1"># Search data/metadata in the waterml2 service</span>
-s <span class="o">&lt;-</span> SearchNRFA<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="m">3001</span><span class="p">,</span><span class="m">3002</span><span class="p">,</span><span class="m">3003</span><span class="p">))</span>
-</pre></div>
-
-<p>Once stations information are fetched, metadata is returned as follows:</p>
-
-<div class="highlight highlight-R"><pre><span class="c1"># extract only important info for the first station</span>
-s<span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">$</span>metadata
-</pre></div>
+<span class="c1"># Once station information is fetched, metadata is returned as follows:</span>
+<span class="nv">s</span><span class="k">$</span><span class="nv">metadata</span>
+<span class="c1"># while data is returned as zoo object</span>
+<span class="nv">ts</span> <span class="o">&lt;-</span> <span class="nv">s</span><span class="k">$</span><span class="nv">data</span></pre></div>
 
 <p>The time series can be plotted as shown below.</p>
 
-<div class="highlight highlight-R"><pre><span class="c1"># Extract last year of recordings from timeseries data</span>
-<span class="kn">library</span><span class="p">(</span>zoo<span class="p">)</span>
-ts <span class="o">&lt;-</span> s<span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">$</span>data
-plot<span class="p">(</span>ts<span class="p">,</span>main<span class="o">=</span><span class="kp">as.character</span><span class="p">(</span>s<span class="p">[[</span><span class="m">1</span><span class="p">]]</span><span class="o">$</span>metadata<span class="o">$</span>stationName<span class="p">))</span>
-</pre></div>
+<div class="highlight highlight-R"><pre><span class="c1"># Plot streamflow timeseries data</span>
+library(<span class="nv">zoo</span>)
+plot(<span class="nv">ts</span>,<span class="nv">main</span><span class="o">=</span>as.character(<span class="nv">s</span><span class="k">$</span><span class="nv">metadata</span><span class="k">$</span><span class="nv">stationName</span>))</pre></div>
+
+<h2>
+<a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple sites</h2>
+
+<p>Retrieving information for multiple sites becomes trivial:</p>
+
+<div class="highlight highlight-R"><pre><span class="c1"># Search data/metadata in the waterml2 service</span>
+<span class="nv">s</span> <span class="o">&lt;-</span> SearchNRFA(c(<span class="m">3001</span>,<span class="m">3002</span>,<span class="m">3003</span>))</pre></div>
+
+<div class="highlight highlight-R"><pre><span class="c1"># extract only important info for the first station</span>
+<span class="nv">secondSite</span> <span class="o">&lt;-</span> <span class="nv">s</span>[[<span class="m">2</span>]]
+<span class="nv">thirdSite</span> <span class="o">&lt;-</span> <span class="nv">s</span>[[<span class="m">3</span>]]
+
+plot(<span class="nv">secondSite</span><span class="k">$</span><span class="nv">data</span>,<span class="nv">col</span><span class="o">=</span><span class="s2">"red"</span>)
+lines(<span class="nv">thirdSite</span><span class="k">$</span><span class="nv">data</span>,<span class="nv">col</span><span class="o">=</span><span class="s2">"green"</span>)</pre></div>
 
 <h3>
-<a name="terms-and-conditions" class="anchor" href="#terms-and-conditions"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
+<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
 
 <p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://www.ceh.ac.uk/data/nrfa/data/data_terms.html">http://www.ceh.ac.uk/data/nrfa/data/data_terms.html</a> </p>
 
 <p>This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.</p>
 
 <h1>
-<a name="leave-your-feedback" class="anchor" href="#leave-your-feedback"><span class="octicon octicon-link"></span></a>Leave your feedback</h1>
+<a id="leave-your-feedback" class="anchor" href="#leave-your-feedback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Leave your feedback</h1>
 
 <p>I would greatly appreciate if you could leave your feedbacks either via email (<a href="mailto:cvitolodev@gmail.com">cvitolodev@gmail.com</a>) or taking a short survey (<a href="https://www.surveymonkey.com/s/GTGH8RX">https://www.surveymonkey.com/s/GTGH8RX</a>).</p>
         </section>
