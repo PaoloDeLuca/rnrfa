@@ -39,27 +39,27 @@
 
 <p>The information returned by the first three services is in JSON format, while the last one is an XML variant.</p>
 
-<p>The RNRFA package aims to acheive a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
+<p>The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
 
 <p><strong>To cite this software:</strong><br>
-C. Vitolo and M. Fry, R for the National River Flow Archive (rnrfa, R package), (2015), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
+Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
 
 <h3>
 <a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
 
 <p>The stable version (preferred option) of rnrfa is available from CRAN (<a href="http://www.cran.r-project.org/web/packages/rnrfa/index.html">http://www.cran.r-project.org/web/packages/rnrfa/index.html</a>):</p>
 
-<div class="highlight highlight-R"><pre>install.packages(<span class="pl-s1"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
+<div class="highlight highlight-R"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>The development version is, instead, on github and can be installed via devtools:</p>
 
-<div class="highlight highlight-R"><pre>library(<span class="pl-vo">devtools</span>)
-install_github(<span class="pl-s1"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s1"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)
-library(<span class="pl-vo">rnrfa</span>)</pre></div>
+<div class="highlight highlight-R"><pre>library(<span class="pl-smi">devtools</span>)
+install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)
+library(<span class="pl-smi">rnrfa</span>)</pre></div>
 
 <p>Source the additional function GenerateMap():</p>
 
-<div class="highlight highlight-R"><pre>source_gist(<span class="pl-s1"><span class="pl-pds">"</span>https://gist.github.com/cvitolo/f9d12402956b88935c38<span class="pl-pds">"</span></span>)</pre></div>
+<div class="highlight highlight-R"><pre>source_gist(<span class="pl-s"><span class="pl-pds">"</span>https://gist.github.com/cvitolo/f9d12402956b88935c38<span class="pl-pds">"</span></span>)</pre></div>
 
 <h1>
 <a id="functions" class="anchor" href="#functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions</h1>
@@ -67,7 +67,7 @@ library(<span class="pl-vo">rnrfa</span>)</pre></div>
 <h2>
 <a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span class="octicon octicon-link"></span></a>List of monitoring stations</h2>
 
-<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFACatalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
+<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
 
 <p>Those entries are briefly described as follows:</p>
 
@@ -78,8 +78,8 @@ library(<span class="pl-vo">rnrfa</span>)</pre></div>
 <li>"river" = River catchment</li>
 <li>"stationDescription" = General station description, containing information on weirs, ratings, etc.</li>
 <li>"catchmentDescription" = Information on topography, geology, land cover, etc.</li>
-<li>"hydrometricArea" = UK hydrometric area identification number, see figure \ref{fig:hydrometricAreas}</li>
-<li>"operator" = UK measuring authorities, see figure \ref{fig:operators}</li>
+<li>"hydrometricArea" = UK hydrometric area identification number</li>
+<li>"operator" = UK measuring authorities</li>
 <li>"haName" = Hydrometric Area name</li>
 <li>"gridReference" = OS Grid Reference number</li>
 <li>"stationType" = Type of station (e.g. flume, weir, etc.)</li>
@@ -95,40 +95,40 @@ library(<span class="pl-vo">rnrfa</span>)</pre></div>
 <h2>
 <a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Station filtering</h2>
 
-<p>The same function NRFACatalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
+<p>The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Filter stations based on bounding box</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, 
-                                  <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
-                                  <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, 
-                                  <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, 
+                               <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
+                               <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, 
+                               <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>)
 
 <span class="pl-c"># Filter stations belonging to a certain hydrometric area</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
+                              <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter based on bounding box &amp; metadata strings</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
-                                  <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
-                                  <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
+                               <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
+                               <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
+                               <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter stations based on threshold</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
-                                  <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
-                                  <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
+                               <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
+                               <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
+                               <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter based on minimum reconding years</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
-                                  <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
-                                  <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">minRec</span><span class="pl-k">=</span><span class="pl-c1">30</span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, 
+                               <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>,
+                               <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
+                               <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>,
+                               <span class="pl-v">minRec</span><span class="pl-k">=</span><span class="pl-c1">30</span>)
 
 <span class="pl-c"># Filter stations based on identification number</span>
-<span class="pl-vo">someStations</span> <span class="pl-k">&lt;-</span> NRFACatalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
-                                  <span class="pl-v">entryValue</span><span class="pl-k">=</span>c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))</pre></div>
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
+                               <span class="pl-v">entryValue</span><span class="pl-k">=</span>c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))</pre></div>
 
 <h2>
 <a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conversions</h2>
@@ -136,10 +136,10 @@ library(<span class="pl-vo">rnrfa</span>)</pre></div>
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Where is the first catchment located?</span>
-<span class="pl-vo">someStations</span><span class="pl-k">$</span><span class="pl-vo">gridReference</span>[[<span class="pl-c1">1</span>]]
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>[[<span class="pl-c1">1</span>]]
 
 <span class="pl-c"># Convert OS Grid reference to BNG</span>
-OSGParse(<span class="pl-s1"><span class="pl-pds">"</span>NC581062<span class="pl-pds">"</span></span>)</pre></div>
+OSGParse(<span class="pl-s"><span class="pl-pds">"</span>NC581062<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.</p>
 
@@ -149,10 +149,10 @@ OSG2LatLon(c(<span class="pl-c1">258100</span>,<span class="pl-c1">906200</span>
 <p>Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. </p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Convert OS Grid reference to WGS84 </span>
-OSG2LatLon(OSGParse(<span class="pl-s1"><span class="pl-pds">"</span>NC581062<span class="pl-pds">"</span></span>))
+OSG2LatLon(OSGParse(<span class="pl-s"><span class="pl-pds">"</span>NC581062<span class="pl-pds">"</span></span>))
 
 <span class="pl-c"># multiple entries </span>
-OSG2LatLon(OSGParse(<span class="pl-vo">someStations</span><span class="pl-k">$</span><span class="pl-vo">gridReference</span>))</pre></div>
+OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>))</pre></div>
 
 <h2>
 <a id="interactive-map-and-station-details" class="anchor" href="#interactive-map-and-station-details" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive map and station details</h2>
@@ -163,26 +163,26 @@ OSG2LatLon(OSGParse(<span class="pl-vo">someStations</span><span class="pl-k">$<
 <p>An interactive map of selected stations can be generated with the following commands:</p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Generate a map to show the location of selected stations</span>
-GenerateMap( <span class="pl-vo">someStations</span> )</pre></div>
+GenerateMap( <span class="pl-smi">someStations</span> )</pre></div>
 
 <p>The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.</p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Choose a station by its id number</span>
-<span class="pl-vo">stationID</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">someStations</span><span class="pl-k">$</span><span class="pl-vo">id</span>[[<span class="pl-c1">1</span>]] <span class="pl-c"># 3001</span>
+<span class="pl-smi">stationID</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>[[<span class="pl-c1">1</span>]] <span class="pl-c"># 3001</span>
 
 <span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-vo">s</span> <span class="pl-k">&lt;-</span> SearchNRFA(<span class="pl-vo">stationID</span>)
+<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> NRFA_TS(<span class="pl-smi">stationID</span>)
 
 <span class="pl-c"># Once station information is fetched, metadata is returned as follows:</span>
-<span class="pl-vo">s</span><span class="pl-k">$</span><span class="pl-vo">metadata</span>
+<span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">metadata</span>
 <span class="pl-c"># while data is returned as zoo object</span>
-<span class="pl-vo">ts</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">s</span><span class="pl-k">$</span><span class="pl-vo">data</span></pre></div>
+<span class="pl-smi">ts</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">data</span></pre></div>
 
 <p>The time series can be plotted as shown below.</p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Plot streamflow timeseries data</span>
-library(<span class="pl-vo">zoo</span>)
-plot(<span class="pl-vo">ts</span>,<span class="pl-v">main</span><span class="pl-k">=</span>as.character(<span class="pl-vo">s</span><span class="pl-k">$</span><span class="pl-vo">metadata</span><span class="pl-k">$</span><span class="pl-vo">stationName</span>))</pre></div>
+library(<span class="pl-smi">zoo</span>)
+plot(<span class="pl-smi">ts</span>,<span class="pl-v">main</span><span class="pl-k">=</span>as.character(<span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>))</pre></div>
 
 <h2>
 <a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple sites</h2>
@@ -190,14 +190,14 @@ plot(<span class="pl-vo">ts</span>,<span class="pl-v">main</span><span class="pl
 <p>Retrieving information for multiple sites becomes trivial:</p>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-vo">s</span> <span class="pl-k">&lt;-</span> SearchNRFA(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))</pre></div>
+<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> NRFA_TS(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))</pre></div>
 
 <div class="highlight highlight-R"><pre><span class="pl-c"># extract only important info for the first station</span>
-<span class="pl-vo">secondSite</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">s</span>[[<span class="pl-c1">2</span>]]
-<span class="pl-vo">thirdSite</span> <span class="pl-k">&lt;-</span> <span class="pl-vo">s</span>[[<span class="pl-c1">3</span>]]
+<span class="pl-smi">secondSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]
+<span class="pl-smi">thirdSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">3</span>]]
 
-plot(<span class="pl-vo">secondSite</span><span class="pl-k">$</span><span class="pl-vo">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>)
-lines(<span class="pl-vo">thirdSite</span><span class="pl-k">$</span><span class="pl-vo">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s1"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
+plot(<span class="pl-smi">secondSite</span><span class="pl-k">$</span><span class="pl-smi">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>)
+lines(<span class="pl-smi">thirdSite</span><span class="pl-k">$</span><span class="pl-smi">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
 
 <h3>
 <a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
