@@ -173,7 +173,7 @@ OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Plot streamflow timeseries data</span>
 library(<span class="pl-smi">zoo</span>)
-plot(<span class="pl-smi">data</span>,<span class="pl-v">main</span><span class="pl-k">=</span>as.character(<span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>))</pre></div>
+plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span> <span class="pl-k">=</span> <span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>)</pre></div>
 
 <h2>
 <a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple sites</h2>
@@ -200,16 +200,16 @@ lines(<span class="pl-smi">thirdSite</span>,<span class="pl-v">col</span><span c
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">leaflet</span>)
 
 leaflet(<span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">someStations</span>) %<span class="pl-k">&gt;</span>% addTiles() %<span class="pl-k">&gt;</span>%
-  addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>as.character(paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>)))</pre></div>
+  addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>))</pre></div>
 
-<h3>
-<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h3>
+<h2>
+<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h2>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">dygraphs</span>)
 dygraph(<span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
 
-<h3>
-<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
+<h1>
+<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h1>
 
 <p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://nrfa.ceh.ac.uk/costs-terms-and-conditions">http://nrfa.ceh.ac.uk/costs-terms-and-conditions</a></p>
 
