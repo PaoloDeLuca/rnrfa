@@ -49,17 +49,13 @@ Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), 
 
 <p>The stable version (preferred option) of rnrfa is available from CRAN (<a href="http://www.cran.r-project.org/web/packages/rnrfa/index.html">http://www.cran.r-project.org/web/packages/rnrfa/index.html</a>):</p>
 
-<div class="highlight highlight-R"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>The development version is, instead, on github and can be installed via devtools:</p>
 
-<div class="highlight highlight-R"><pre>library(<span class="pl-smi">devtools</span>)
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">devtools</span>)
 install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)
 library(<span class="pl-smi">rnrfa</span>)</pre></div>
-
-<p>Source the additional function GenerateMap():</p>
-
-<div class="highlight highlight-R"><pre>source_gist(<span class="pl-s"><span class="pl-pds">"</span>https://gist.github.com/cvitolo/f9d12402956b88935c38<span class="pl-pds">"</span></span>)</pre></div>
 
 <h1>
 <a id="functions" class="anchor" href="#functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions</h1>
@@ -69,7 +65,7 @@ library(<span class="pl-smi">rnrfa</span>)</pre></div>
 
 <p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Retrieve information for all the stations in the catalogue:</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Retrieve information for all the stations in the catalogue:</span>
 <span class="pl-smi">allStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue()</pre></div>
 
 <p>Those entries are briefly described as follows:</p>
@@ -100,8 +96,8 @@ library(<span class="pl-smi">rnrfa</span>)</pre></div>
 
 <p>The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Define a bounding box:</span>
-<span class="pl-c"># bbox &lt;- list(lonMin=-3.82, lonMax=-3.63, latMin=52.43, latMax=52.52)</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Define a bounding box:</span>
+<span class="pl-smi">bbox</span> <span class="pl-k">&lt;-</span> <span class="pl-k">list</span>(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>)
 
 <span class="pl-c"># Filter stations based on bounding box</span>
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> NRFA_Catalogue(<span class="pl-smi">bbox</span>)
@@ -135,7 +131,7 @@ library(<span class="pl-smi">rnrfa</span>)</pre></div>
 
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Where is the first catchment located?</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Where is the first catchment located?</span>
 <span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>[[<span class="pl-c1">1</span>]]
 
 <span class="pl-c"># Convert OS Grid reference to BNG</span>
@@ -143,66 +139,79 @@ OSGParse(<span class="pl-s"><span class="pl-pds">"</span>NC581062<span class="pl
 
 <p>The function "OSG2LatLon()", instead, converts from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) and requires an input vector containing latitude and longitude.</p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Convert BNG to WSGS84</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Convert BNG to WSGS84</span>
 OSG2LatLon(c(<span class="pl-c1">258100</span>,<span class="pl-c1">906200</span>))</pre></div>
 
 <p>Nesting the previous two functions allows to convert OS grid reference to a WGS84 system. </p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Convert OS Grid reference to WGS84 </span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Convert OS Grid reference to WGS84 </span>
 OSG2LatLon(OSGParse(<span class="pl-s"><span class="pl-pds">"</span>NC581062<span class="pl-pds">"</span></span>))
 
 <span class="pl-c"># multiple entries </span>
-OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>))</pre></div>
+OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>))
+
+<span class="pl-c"># add lat and lon to the data.frame</span>
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">lat</span> <span class="pl-k">&lt;-</span> OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>))[[<span class="pl-c1">1</span>]]
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">lon</span> <span class="pl-k">&lt;-</span> OSG2LatLon(OSGParse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>))[[<span class="pl-c1">2</span>]]
+</pre></div>
 
 <h2>
-<a id="interactive-map-and-station-details" class="anchor" href="#interactive-map-and-station-details" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive map and station details</h2>
+<a id="get-station-time-series-data-and-metadata" class="anchor" href="#get-station-time-series-data-and-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get station time series data and metadata</h2>
 
-<h3>
-<a id="only-available-for-github-version" class="anchor" href="#only-available-for-github-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>(only available for github version)</h3>
+<p>The station's id number can be used to retrieve the streamflow time series converting the waterml2 file to a time series object (zoo).</p>
 
-<p>An interactive map of selected stations can be generated with the following commands:</p>
-
-<div class="highlight highlight-R"><pre><span class="pl-c"># Generate a map to show the location of selected stations</span>
-GenerateMap( <span class="pl-smi">someStations</span> )</pre></div>
-
-<p>The generated map contains interactive markers. When users click on one of them, a pop-up message is visualised showing name of a selected station and related id. The id number can be used to retrieve the full recorded streamflow time series converting the waterml2 file to a time series object.</p>
-
-<div class="highlight highlight-R"><pre><span class="pl-c"># Choose a station by its id number</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Choose a station by its id number</span>
 <span class="pl-smi">stationID</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>[[<span class="pl-c1">1</span>]] <span class="pl-c"># 3001</span>
 
-<span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> NRFA_TS(<span class="pl-smi">stationID</span>)
+<span class="pl-c"># Get time series data from the waterml2 service</span>
+<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> NRFA_TSdata(<span class="pl-smi">stationID</span>)
 
-<span class="pl-c"># Once station information is fetched, metadata is returned as follows:</span>
-<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">metadata</span>
-<span class="pl-c"># while data is returned as zoo object</span>
-<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">data</span></pre></div>
+<span class="pl-c"># Get time series metadata from the waterml2 service</span>
+<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> NRFA_TSmetadata(<span class="pl-smi">stationID</span>)</pre></div>
 
 <p>The time series can be plotted as shown below.</p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Plot streamflow timeseries data</span>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Plot streamflow timeseries data</span>
 library(<span class="pl-smi">zoo</span>)
-plot(<span class="pl-smi">data</span>,<span class="pl-v">main</span><span class="pl-k">=</span>as.character(<span class="pl-smi">s</span><span class="pl-k">$</span><span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>))</pre></div>
+plot(<span class="pl-smi">data</span>,<span class="pl-v">main</span><span class="pl-k">=</span>as.character(<span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>))</pre></div>
 
 <h2>
 <a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple sites</h2>
 
 <p>Retrieving information for multiple sites becomes trivial:</p>
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> NRFA_TS(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))</pre></div>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Search data/metadata in the waterml2 service</span>
+<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> NRFA_TSdata(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))
 
-<div class="highlight highlight-R"><pre><span class="pl-c"># extract only important info for the first station</span>
-<span class="pl-smi">secondSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]
-<span class="pl-smi">thirdSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">3</span>]]
+<span class="pl-c"># s is a list of 3 object (one object for each site)</span>
+<span class="pl-smi">firstSite</span>  <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">1</span>]]  <span class="pl-c"># s$ID3001</span>
+<span class="pl-smi">secondSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]  <span class="pl-c"># s$ID3002</span>
+<span class="pl-smi">thirdSite</span>  <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">3</span>]]  <span class="pl-c"># s$ID3003</span>
 
-plot(<span class="pl-smi">secondSite</span><span class="pl-k">$</span><span class="pl-smi">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>)
-lines(<span class="pl-smi">thirdSite</span><span class="pl-k">$</span><span class="pl-smi">data</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
+plot(<span class="pl-smi">secondSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span>)
+lines(<span class="pl-smi">thirdSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
+
+<h1>
+<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span class="octicon octicon-link"></span></a>INTEROPERABILITY</h1>
+
+<h2>
+<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h2>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">leaflet</span>)
+
+leaflet(<span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">someStations</span>) %<span class="pl-k">&gt;</span>% addTiles() %<span class="pl-k">&gt;</span>%
+  addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>as.character(paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>)))</pre></div>
+
+<h3>
+<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h3>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">dygraphs</span>)
+dygraph(<span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
 
 <h3>
 <a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h3>
 
-<p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://www.ceh.ac.uk/data/nrfa/data/data_terms.html">http://www.ceh.ac.uk/data/nrfa/data/data_terms.html</a> </p>
+<p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://nrfa.ceh.ac.uk/costs-terms-and-conditions">http://nrfa.ceh.ac.uk/costs-terms-and-conditions</a></p>
 
 <p>This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.</p>
 
