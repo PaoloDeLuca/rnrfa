@@ -29,7 +29,7 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h1>
-<a id="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" aria-hidden="true"><span class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
+<a id="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
 
 <p><a href="http://dx.doi.org/10.5281/zenodo.14722"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.14722.svg" alt="DOI"></a></p>
 
@@ -42,30 +42,39 @@
 <p>The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
 
 <p><strong>To cite this software:</strong><br>
-Vitolo C. and Fry M., R for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
-
-<h3>
-<a id="basics" class="anchor" href="#basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basics</h3>
-
-<p>The stable version (preferred option) of rnrfa is available from CRAN:</p>
-
-<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
-
-<p>The development version is, instead, on github and can be installed via devtools:</p>
-
-<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>devtools<span class="pl-pds">"</span></span>)
-library(<span class="pl-smi">devtools</span>)
-
-install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)
-library(<span class="pl-smi">rnrfa</span>)</pre></div>
+Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
 
 <h1>
-<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Functions</h1>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h1>
+
+<p>The rnrfa package is dependent on a number of CRAN packages. Install them first:</p>
+
+<div class="highlight highlight-source-r"><pre>install.packages(c(<span class="pl-s"><span class="pl-pds">"</span>XML2R<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>RCurl<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>zoo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rjson<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rgdal<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>sp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>stringr<span class="pl-pds">"</span></span>))</pre></div>
+
+<p>This demo makes also use of external libraries. To install and load them run the following commands:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">packs</span> <span class="pl-k">&lt;-</span> c(<span class="pl-s"><span class="pl-pds">"</span>devtools<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>parallel<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ggplot2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>DT<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>leaflet<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>dygraphs<span class="pl-pds">"</span></span>)
+install.packages(<span class="pl-smi">packs</span>)
+lapply(<span class="pl-smi">packs</span>, <span class="pl-smi">require</span>, <span class="pl-v">character.only</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)</pre></div>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<p>The stable version (preferred option) of rnrfa is available from CRAN using <code>install.packages("rnrfa")</code>, while the development version is available on github via devtools:</p>
+
+<div class="highlight highlight-source-r"><pre>install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>Now, load the rnrfa package:</p>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">rnrfa</span>)</pre></div>
+
+<h1>
+<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions</h1>
 
 <h2>
-<a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span class="octicon octicon-link"></span></a>List of monitoring stations</h2>
+<a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of monitoring stations</h2>
 
-<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called NRFA_Catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
+<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Retrieve information for all the stations in the catalogue:</span>
 <span class="pl-smi">allStations</span> <span class="pl-k">&lt;-</span> catalogue()</pre></div>
@@ -96,9 +105,9 @@ library(<span class="pl-smi">rnrfa</span>)</pre></div>
 </ul>
 
 <h2>
-<a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Station filtering</h2>
+<a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Station filtering</h2>
 
-<p>The same function NRFA_Catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
+<p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Define a bounding box:</span>
 <span class="pl-smi">bbox</span> <span class="pl-k">&lt;-</span> <span class="pl-k">list</span>(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>)
@@ -136,7 +145,7 @@ library(<span class="pl-smi">rnrfa</span>)</pre></div>
                           <span class="pl-v">minRec</span><span class="pl-k">=</span><span class="pl-c1">35</span>)</pre></div>
 
 <h2>
-<a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conversions</h2>
+<a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Conversions</h2>
 
 <p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 
@@ -152,7 +161,7 @@ OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl
 OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>, <span class="pl-v">CoordSystem</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>WGS84<span class="pl-pds">"</span></span>)</pre></div>
 
 <h2>
-<a id="get-station-time-series-data-and-metadata" class="anchor" href="#get-station-time-series-data-and-metadata" aria-hidden="true"><span class="octicon octicon-link"></span></a>Get station time series data and metadata</h2>
+<a id="get-station-time-series-data-and-metadata" class="anchor" href="#get-station-time-series-data-and-metadata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get station time series data and metadata</h2>
 
 <p>The station's id number can be used to retrieve the streamflow time series converting the waterml2 file to a time series object (zoo).</p>
 
@@ -175,7 +184,7 @@ library(<span class="pl-smi">zoo</span>)
 plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span> <span class="pl-k">=</span> <span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>)</pre></div>
 
 <h2>
-<a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Multiple sites</h2>
+<a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple sites</h2>
 
 <p>Retrieving information for multiple sites becomes trivial:</p>
 
@@ -191,10 +200,10 @@ plot(<span class="pl-smi">secondSite</span>,<span class="pl-v">col</span><span c
 lines(<span class="pl-smi">thirdSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
 
 <h1>
-<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span class="octicon octicon-link"></span></a>INTEROPERABILITY</h1>
+<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INTEROPERABILITY</h1>
 
 <h2>
-<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h2>
+<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h2>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">leaflet</span>)
 
@@ -202,13 +211,13 @@ leaflet(<span class="pl-v">data</span> <span class="pl-k">=</span> <span class="
   addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>))</pre></div>
 
 <h2>
-<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h2>
+<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h2>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">dygraphs</span>)
 dygraph(<span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
 
 <h2>
-<a id="parallel-processing" class="anchor" href="#parallel-processing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Parallel processing:</h2>
+<a id="parallel-processing" class="anchor" href="#parallel-processing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parallel processing:</h2>
 
 <p>A simple benchmark test</p>
 
@@ -220,36 +229,37 @@ system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> GDF(
 <span class="pl-c">#   user  system elapsed </span>
 <span class="pl-c"># 46.368   0.080  48.240</span>
 
-system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>) )
+system.time( <span class="pl-smi">s2</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores()) )
 <span class="pl-c">#   user  system elapsed </span>
 <span class="pl-c"># 24.976   0.192  26.272</span></pre></div>
 
 <p>Make time consuming tasks faster</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Use all the stations operated by the Natural Resources Wales</span>
-<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>operator<span class="pl-pds">"</span></span>, 
+<span class="pl-smi">stations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>operator<span class="pl-pds">"</span></span>, 
                           <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Natural Resources Wales<span class="pl-pds">"</span></span>)
 
-<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>)                  <span class="pl-c"># from the parallel package</span>
-<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">meanGDF</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">s</span>, <span class="pl-smi">mean</span>) )   
+<span class="pl-c"># Get the time series (TS)</span>
+<span class="pl-smi">TS</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">stations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores())    <span class="pl-c"># parallel package</span>
+<span class="pl-smi">stations</span><span class="pl-k">$</span><span class="pl-smi">meanGDF</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">TS</span>, <span class="pl-smi">mean</span>) )   
 
 <span class="pl-c"># Linear model</span>
 library(<span class="pl-smi">ggplot2</span>)
-ggplot(<span class="pl-smi">someStations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meanGDF</span>)) <span class="pl-k">+</span> 
+ggplot(<span class="pl-smi">stations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meanGDF</span>)) <span class="pl-k">+</span> 
   geom_point() <span class="pl-k">+</span>
   stat_smooth(<span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lm<span class="pl-pds">"</span></span>, <span class="pl-v">col</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>) <span class="pl-k">+</span>
   xlab(expression(paste(<span class="pl-s"><span class="pl-pds">"</span>Catchment area [Km^2]<span class="pl-pds">"</span></span>,<span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))) <span class="pl-k">+</span> 
   ylab(expression(paste(<span class="pl-s"><span class="pl-pds">"</span>Mean flow [m^3/s]<span class="pl-pds">"</span></span>,<span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>)))</pre></div>
 
 <h1>
-<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Terms and Conditions</h1>
+<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terms and Conditions</h1>
 
 <p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://nrfa.ceh.ac.uk/costs-terms-and-conditions">http://nrfa.ceh.ac.uk/costs-terms-and-conditions</a></p>
 
 <p>This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.</p>
 
 <h1>
-<a id="leave-your-feedback" class="anchor" href="#leave-your-feedback" aria-hidden="true"><span class="octicon octicon-link"></span></a>Leave your feedback</h1>
+<a id="leave-your-feedback" class="anchor" href="#leave-your-feedback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Leave your feedback</h1>
 
 <p>I would greatly appreciate if you could leave your feedbacks either via email (<a href="mailto:cvitolodev@gmail.com">cvitolodev@gmail.com</a>) or taking a short survey (<a href="https://www.surveymonkey.com/s/GTGH8RX">https://www.surveymonkey.com/s/GTGH8RX</a>).</p>
         </section>
