@@ -42,7 +42,7 @@
 <p>The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
 
 <p><strong>To cite this software:</strong><br>
-Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package), (2014), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
+Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package version 0.4.0), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
 
 <h1>
 <a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h1>
@@ -160,28 +160,45 @@ OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Convert BNG to WSGS84</span>
 OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>, <span class="pl-v">CoordSystem</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>WGS84<span class="pl-pds">"</span></span>)</pre></div>
 
+<p>OSGparse() also works with multiple references:</p>
+
+<div class="highlight highlight-source-r"><pre>OSGparse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>)</pre></div>
+
 <h2>
-<a id="get-station-time-series-data-and-metadata" class="anchor" href="#get-station-time-series-data-and-metadata" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get station time series data and metadata</h2>
+<a id="get-time-series-data" class="anchor" href="#get-time-series-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get time series data</h2>
 
-<p>The station's id number can be used to retrieve the streamflow time series converting the waterml2 file to a time series object (zoo).</p>
+<p>The first column of the table "someStations" contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo). </p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Choose a station by its id number</span>
-<span class="pl-smi">stationID</span> <span class="pl-k">&lt;-</span> <span class="pl-c1">3001</span>
+<p>The National River Flow Archive serves two types of time series data:</p>
 
-<span class="pl-c"># Get time series data from the waterml2 service (flow)</span>
-<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-smi">stationID</span>)
+<ul>
+<li><p>Gauged Daily Flows (GDF)</p></li>
+<li><p>Catchment Mean Rainfall (CMR)</p></li>
+</ul>
 
-<span class="pl-c"># Get time series data from the waterml2 service (rainfall)</span>
-<span class="pl-smi">dataR</span> <span class="pl-k">&lt;-</span> CMR(<span class="pl-smi">stationID</span>)
+<h3>
+<a id="gauged-daily-flows" class="anchor" href="#gauged-daily-flows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gauged Daily Flows</h3>
 
-<span class="pl-c"># Get time series metadata from the waterml2 service</span>
-<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> GDFmeta(<span class="pl-smi">stationID</span>)</pre></div>
+<p>Gauged Daily Flows can be obtained using the function GDF(). This accepts one input, the station id (as single string or character vector). 
+Here is how to retrieve daily flows for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
 
-<p>The time series can be plotted as shown below.</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch time series data from the waterml2 service</span>
+<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> GDFmeta(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Daily flow data for the<span class="pl-pds">"</span></span>, <span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>, <span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>),
+     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span>expression(<span class="pl-smi">m</span><span class="pl-k">^</span><span class="pl-c1">3</span><span class="pl-k">/</span><span class="pl-smi">s</span>))</pre></div>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Plot streamflow timeseries data</span>
-library(<span class="pl-smi">zoo</span>)
-plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span> <span class="pl-k">=</span> <span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>)</pre></div>
+<h3>
+<a id="catchment-mean-rainfall" class="anchor" href="#catchment-mean-rainfall" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catchment Mean Rainfall</h3>
+
+<p>Catchment Mean Rainfall can be obtained using the function CMR(). This accepts one input, the station id (as single string or character vector). 
+Here is how to retrieve rainfall data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch time series data from the waterml2 service</span>
+<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> CMR(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> CMRmeta(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Monthly rainfall data for the<span class="pl-pds">"</span></span>,<span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>,<span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>), 
+     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span>expression(<span class="pl-smi">mm</span>))</pre></div>
 
 <h2>
 <a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple sites</h2>
@@ -199,53 +216,56 @@ plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span> <span clas
 plot(<span class="pl-smi">secondSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span>)
 lines(<span class="pl-smi">thirdSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
 
-<h1>
-<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INTEROPERABILITY</h1>
-
 <h2>
-<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h2>
+<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INTEROPERABILITY</h2>
+
+<h3>
+<a id="upgrade-your-dataframe-to-a-datatable" class="anchor" href="#upgrade-your-dataframe-to-a-datatable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrade your data.frame to a data.table:</h3>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">DT</span>)
+datatable(<span class="pl-smi">allStations</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">4</span>,<span class="pl-c1">7</span>,<span class="pl-c1">9</span>,<span class="pl-c1">10</span>,<span class="pl-c1">12</span><span class="pl-k">:</span><span class="pl-c1">14</span>,<span class="pl-c1">17</span>)])</pre></div>
+
+<h3>
+<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h3>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">leaflet</span>)
 
 leaflet(<span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">someStations</span>) %<span class="pl-k">&gt;</span>% addTiles() %<span class="pl-k">&gt;</span>%
-  addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>))</pre></div>
+  addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>as.character(paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>)))</pre></div>
 
-<h2>
-<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h2>
+<h3>
+<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h3>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">dygraphs</span>)
 dygraph(<span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
 
-<h2>
-<a id="parallel-processing" class="anchor" href="#parallel-processing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parallel processing:</h2>
+<h3>
+<a id="parallel-processing" class="anchor" href="#parallel-processing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parallel processing:</h3>
 
 <p>A simple benchmark test</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">parallel</span>)
-detectCores()   <span class="pl-c">#             How many cores are available on the local machine?</span>
-<span class="pl-c"># 8</span>
+<span class="pl-c"># Use detectCores() to find out many cores are available on your machine</span>
 
-system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>) )
-<span class="pl-c">#   user  system elapsed </span>
-<span class="pl-c"># 46.368   0.080  48.240</span>
+<span class="pl-c"># Filter all the stations with a minimum of 100 years of recordings</span>
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">minRec</span> <span class="pl-k">=</span> <span class="pl-c1">94</span>)</pre></div>
 
-system.time( <span class="pl-smi">s2</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores()) )
-<span class="pl-c">#   user  system elapsed </span>
-<span class="pl-c"># 24.976   0.192  26.272</span></pre></div>
+<p>1 core vs multiple cores </p>
 
-<p>Make time consuming tasks faster</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Get flow data with a sequential approach</span>
+system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>) )</pre></div>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Use all the stations operated by the Natural Resources Wales</span>
-<span class="pl-smi">stations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>operator<span class="pl-pds">"</span></span>, 
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Natural Resources Wales<span class="pl-pds">"</span></span>)
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Get flow data with a parallel approach</span>
+system.time( <span class="pl-smi">s2</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores()) )  </pre></div>
 
-<span class="pl-c"># Get the time series (TS)</span>
-<span class="pl-smi">TS</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">stations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores())    <span class="pl-c"># parallel package</span>
-<span class="pl-smi">stations</span><span class="pl-k">$</span><span class="pl-smi">meanGDF</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">TS</span>, <span class="pl-smi">mean</span>) )   
+<p>The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Calculate the mean flow for each catchment</span>
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">meanGDF</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">s2</span>, <span class="pl-smi">mean</span>) )
 
 <span class="pl-c"># Linear model</span>
 library(<span class="pl-smi">ggplot2</span>)
-ggplot(<span class="pl-smi">stations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meanGDF</span>)) <span class="pl-k">+</span> 
+ggplot(<span class="pl-smi">someStations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meanGDF</span>)) <span class="pl-k">+</span> 
   geom_point() <span class="pl-k">+</span>
   stat_smooth(<span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lm<span class="pl-pds">"</span></span>, <span class="pl-v">col</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>) <span class="pl-k">+</span>
   xlab(expression(paste(<span class="pl-s"><span class="pl-pds">"</span>Catchment area [Km^2]<span class="pl-pds">"</span></span>,<span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))) <span class="pl-k">+</span> 
