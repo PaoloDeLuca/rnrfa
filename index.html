@@ -206,7 +206,7 @@ plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span><span class
 <p>Retrieving information for multiple sites becomes trivial:</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> GDF(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))
+<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> lapply(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>),<span class="pl-smi">GDF</span>)
 
 <span class="pl-c"># s is a list of 3 object (one object for each site)</span>
 <span class="pl-smi">firstSite</span>  <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">1</span>]]  <span class="pl-c"># s$ID3001</span>
