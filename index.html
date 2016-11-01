@@ -28,53 +28,62 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h1>
-<a id="rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-interact-with-the-uk-national-river-flow-archive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RNRFA: an R package to interact with the UK National River Flow Archive</h1>
+          
 
-<p><a href="http://dx.doi.org/10.5281/zenodo.14722"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.14722.svg" alt="DOI"></a></p>
+<h2>
+<a id="rnrfa-an-r-package-to-retrieve-filter-and-visualize-data-from-the-uk-national-river-flow-archive" class="anchor" href="#rnrfa-an-r-package-to-retrieve-filter-and-visualize-data-from-the-uk-national-river-flow-archive" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>rnrfa: An R package to Retrieve, Filter and Visualize Data from the UK National River Flow Archive</h2>
+
+<p><a href="http://dx.doi.org/10.5281/zenodo.61439"><img src="https://zenodo.org/badge/doi/10.5281/zenodo.61439.svg" alt="DOI"></a></p>
+
+<p><a href="https://cran.r-project.org/package=rnrfa"><img src="http://www.r-pkg.org/badges/version/rnrfa" alt="CRAN Status Badge"></a> <a href="https://cran.r-project.org/package=rnrfa"><img src="http://cranlogs.r-pkg.org/badges/grand-total/rnrfa" alt="CRAN Total Downloads"></a> <a href="https://cran.r-project.org/package=rnrfa"><img src="http://cranlogs.r-pkg.org/badges/rnrfa" alt="CRAN Monthly Downloads"></a></p>
+
+<p><a href="https://travis-ci.org/cvitolo/rnrfa.svg?branch=master"><img src="https://travis-ci.org/cvitolo/rnrfa.svg" alt="Build Status"></a> <a href="https://ci.appveyor.com/project/cvitolo/rnrfa"><img src="https://ci.appveyor.com/api/projects/status/github/cvitolo/rnrfa?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a> <a href="https://codecov.io/github/cvitolo/rnrfa?branch=master"><img src="https://codecov.io/github/cvitolo/rnrfa/coverage.svg?branch=master" alt="codecov.io"></a></p>
 
 <p>The UK National River Flow Archive serves daily streamflow data, spatial rainfall averages and information regarding elevation, geology, land cover and FEH related catchment descriptors.</p>
 
-<p>There is currently an API under development that in future should provide access to the following services: metadata catalogue, catalogue filters based on a geographical bounding-box, catalogue filters based on metadata entries, gauged daily data for about 400 stations available in WaterML2 format, the OGC standard used to describe hydrological time series.  </p>
+<p>There is currently an API under development that in future should provide access to the following services: metadata catalogue, catalogue filters based on a geographical bounding-box, catalogue filters based on metadata entries, gauged daily data for about 400 stations available in WaterML2 format, the OGC standard used to describe hydrological time series.</p>
 
 <p>The information returned by the first three services is in JSON format, while the last one is an XML variant.</p>
 
-<p>The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses. </p>
+<p>The RNRFA package aims to achieve a simpler and more efficient access to data by providing wrapper functions to send HTTP requests and interpret XML/JSON responses.</p>
 
-<p><strong>To cite this software:</strong><br>
-Vitolo C. and Fry M., R interface for the National River Flow Archive (rnrfa, R package version 0.4.0), GitHub repository, <a href="https://github.com/cvitolo/r_rnrfa">https://github.com/cvitolo/r_rnrfa</a>, doi: <a href="http://dx.doi.org/10.5281/zenodo.14722">http://dx.doi.org/10.5281/zenodo.14722</a></p>
+<h3>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h3>
 
-<h1>
-<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dependencies</h1>
+<p>The rnrfa package depends on the <strong>gdal</strong> library, make sure you have it installed on your system before attempting to install this package.</p>
 
-<p>The rnrfa package is dependent on a number of CRAN packages. Install them first:</p>
+<p><strong>R package dependencies</strong> can be installed running the following code:</p>
 
-<div class="highlight highlight-source-r"><pre>install.packages(c(<span class="pl-s"><span class="pl-pds">"</span>XML2R<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>RCurl<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>zoo<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rjson<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rgdal<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>sp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>stringr<span class="pl-pds">"</span></span>))</pre></div>
+<div class="highlight highlight-source-r"><pre>install.packages(c(<span class="pl-s"><span class="pl-pds">"</span>cowplot<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>plyr<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>httr<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>xml2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>stringr<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>xts<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rjson<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ggmap<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ggplot2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>sp<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>rgdal<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>parallel<span class="pl-pds">"</span></span>))</pre></div>
 
 <p>This demo makes also use of external libraries. To install and load them run the following commands:</p>
 
-<div class="highlight highlight-source-r"><pre><span class="pl-smi">packs</span> <span class="pl-k">&lt;-</span> c(<span class="pl-s"><span class="pl-pds">"</span>devtools<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>parallel<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>ggplot2<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>DT<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>leaflet<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>dygraphs<span class="pl-pds">"</span></span>)
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">packs</span> <span class="pl-k">&lt;-</span> c(<span class="pl-s"><span class="pl-pds">"</span>devtools<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>DT<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>leaflet<span class="pl-pds">"</span></span>)
 install.packages(<span class="pl-smi">packs</span>)
 lapply(<span class="pl-smi">packs</span>, <span class="pl-smi">require</span>, <span class="pl-v">character.only</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)</pre></div>
 
-<h1>
-<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
 
-<p>The stable version (preferred option) of rnrfa is available from CRAN using <code>install.packages("rnrfa")</code>, while the development version is available on github via devtools:</p>
+<p>The stable version of the <strong>rnrfa</strong> package is available from CRAN:</p>
 
-<div class="highlight highlight-source-r"><pre>install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/r_rnrfa<span class="pl-pds">"</span></span>, <span class="pl-v">subdir</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>rnrfa<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>Or you can install the development version from Github with <a href="https://github.com/hadley/devtools">devtools</a>:</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-e">devtools</span><span class="pl-k">::</span>install_github(<span class="pl-s"><span class="pl-pds">"</span>cvitolo/rnrfa<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>Now, load the rnrfa package:</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">rnrfa</span>)</pre></div>
 
-<h1>
-<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions</h1>
+<h3>
+<a id="functions" class="anchor" href="#functions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Functions</h3>
 
-<h2>
-<a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of monitoring stations</h2>
+<h4>
+<a id="list-of-monitoring-stations" class="anchor" href="#list-of-monitoring-stations" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>List of monitoring stations</h4>
 
-<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available. </p>
+<p>The R function that deals with the NRFA catalogue to retrieve the full list of monitoring stations is called catalogue(). The function, used with no inputs, requests the full list of gauging stations with associated metadata. The output is a dataframe containing one record for each station and as many columns as the number of metadata entries available.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Retrieve information for all the stations in the catalogue:</span>
 <span class="pl-smi">allStations</span> <span class="pl-k">&lt;-</span> catalogue()</pre></div>
@@ -82,32 +91,32 @@ lapply(<span class="pl-smi">packs</span>, <span class="pl-smi">require</span>, <
 <p>Those entries are briefly described as follows:</p>
 
 <ul>
-<li>"id" = Station identification number</li>
-<li>"name" = Name of the station</li>
-<li>"location" = Area in which the station is located</li>
-<li>"river" = River catchment</li>
-<li>"stationDescription" = General station description, containing information on weirs, ratings, etc.</li>
-<li>"catchmentDescription" = Information on topography, geology, land cover, etc.</li>
-<li>"hydrometricArea" = UK hydrometric area identification number</li>
-<li>"operator" = UK measuring authorities</li>
-<li>"haName" = Hydrometric Area name</li>
-<li>"gridReference" = OS Grid Reference number</li>
-<li>"stationType" = Type of station (e.g. flume, weir, etc.)</li>
-<li>"catchmentArea" = Catchment area in (Km^2)</li>
-<li>"gdfStart" = Year in which recordings started</li>
-<li>"gdfEnd" = Year in which recordings ended</li>
-<li>"farText" = Information on the regime (e.g. natural, regulated, etc.)</li>
-<li>"categories" = various tags (e.g. FEH_POOLING, FEH_QMED, HIFLOWS_INCLUDED)</li>
-<li>"altitude" = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.</li>
-<li>"sensitivity" = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the $Q_{95}$ flow.</li>
-<li>"lat" = a numeric vector of latitude coordinates.</li>
-<li>"lon" = a numeric vector of longitude coordinates.</li>
+<li>  <code>id</code> = Station identification number</li>
+<li>  <code>name</code> = Name of the station</li>
+<li>  <code>location</code> = Area in which the station is located</li>
+<li>  <code>river</code> = River catchment</li>
+<li>  <code>stationDescription</code> = General station description, containing information on weirs, ratings, etc.</li>
+<li>  <code>catchmentDescription</code> = Information on topography, geology, land cover, etc.</li>
+<li>  <code>hydrometricArea</code> = UK hydrometric area identification number</li>
+<li>  <code>operator</code> = UK measuring authorities</li>
+<li>  <code>haName</code> = Hydrometric Area name</li>
+<li>  <code>gridReference</code> = OS Grid Reference number</li>
+<li>  <code>stationType</code> = Type of station (e.g. flume, weir, etc.)</li>
+<li>  <code>catchmentArea</code> = Catchment area in (Km^2)</li>
+<li>  <code>gdfStart</code> = Year in which recordings started</li>
+<li>  <code>gdfEnd</code> = Year in which recordings ended</li>
+<li>  <code>farText</code> = Information on the regime (e.g. natural, regulated, etc.)</li>
+<li>  <code>categories</code> = various tags (e.g. FEH_POOLING, FEH_QMED, HIFLOWS_INCLUDED)</li>
+<li>  <code>altitude</code> = Altitude measured in metres above Ordnance Datum or, in Northern Ireland, Malin Head.</li>
+<li>  <code>sensitivity</code> = Sensitivity index calculated as the percentage change in flow associated with a 10 mm increase in stage at the <em>Q</em><sub>95</sub> flow.</li>
+<li>  <code>lat</code> = a numeric vector of latitude coordinates.</li>
+<li>  <code>lon</code> = a numeric vector of longitude coordinates.</li>
 </ul>
 
-<h2>
-<a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Station filtering</h2>
+<h4>
+<a id="station-filtering" class="anchor" href="#station-filtering" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Station filtering</h4>
 
-<p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries. </p>
+<p>The same function catalogue() can be used to filter stations based on a bounding box or any of the metadata entries.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Define a bounding box:</span>
 <span class="pl-smi">bbox</span> <span class="pl-k">&lt;-</span> <span class="pl-k">list</span>(<span class="pl-v">lonMin</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.82</span>, <span class="pl-v">lonMax</span><span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">3.63</span>, <span class="pl-v">latMin</span><span class="pl-k">=</span><span class="pl-c1">52.43</span>, <span class="pl-v">latMax</span><span class="pl-k">=</span><span class="pl-c1">52.52</span>)
@@ -116,172 +125,173 @@ lapply(<span class="pl-smi">packs</span>, <span class="pl-smi">require</span>, <
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>)
 
 <span class="pl-c"># Filter stations belonging to a certain hydrometric area</span>
-<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>, <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>, <span class="pl-v">columnValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter based on bounding box &amp; metadata strings</span>
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>,
-                          <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
+                          <span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>haName<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Wye (Hereford)<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter stations based on threshold</span>
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>,
-                          <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>)
+                          <span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>)
 
 <span class="pl-c"># Filter based on minimum recording years</span>
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>,
-                          <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>catchmentArea<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnValue</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>&gt;1<span class="pl-pds">"</span></span>,
                           <span class="pl-v">minRec</span><span class="pl-k">=</span><span class="pl-c1">30</span>)
 
 <span class="pl-c"># Filter stations based on identification number</span>
-<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span>c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnValue</span><span class="pl-k">=</span>c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>))
 
 <span class="pl-c"># Other combined filtering</span>
 <span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>,
-                          <span class="pl-v">metadataColumn</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
-                          <span class="pl-v">entryValue</span><span class="pl-k">=</span>c(<span class="pl-c1">54022</span>,<span class="pl-c1">54090</span>,<span class="pl-c1">54091</span>,<span class="pl-c1">54092</span>,<span class="pl-c1">54097</span>),
+                          <span class="pl-v">columnName</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>,
+                          <span class="pl-v">columnValue</span><span class="pl-k">=</span>c(<span class="pl-c1">54022</span>,<span class="pl-c1">54090</span>,<span class="pl-c1">54091</span>,<span class="pl-c1">54092</span>,<span class="pl-c1">54097</span>),
                           <span class="pl-v">minRec</span><span class="pl-k">=</span><span class="pl-c1">35</span>)</pre></div>
 
-<h2>
-<a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Conversions</h2>
+<h4>
+<a id="conversions" class="anchor" href="#conversions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Conversions</h4>
 
-<p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "OSGParse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
+<p>The only geospatial information contained in the list of station in the catalogue is the OS grid reference (column "gridRef"). The RNRFA package allows convenient conversion to more standard coordinate systems. The function "osg_parse()", for example, converts the string to easting and northing in the BNG coordinate system (EPSG code: 27700), as in the example below:</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Where is the first catchment located?</span>
-<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>[[<span class="pl-c1">1</span>]]
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>[<span class="pl-c1">1</span>]
 
 <span class="pl-c"># Convert OS Grid reference to BNG</span>
-OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>)</pre></div>
+osg_parse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>)</pre></div>
 
 <p>The same function can also convert from BNG to latitude and longitude in the WSGS84 coordinate system (EPSG code: 4326) as in the example below.</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Convert BNG to WSGS84</span>
-OSGparse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>, <span class="pl-v">CoordSystem</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>WGS84<span class="pl-pds">"</span></span>)</pre></div>
+osg_parse(<span class="pl-s"><span class="pl-pds">"</span>SN853872<span class="pl-pds">"</span></span>, <span class="pl-v">CoordSystem</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>WGS84<span class="pl-pds">"</span></span>)</pre></div>
 
-<p>OSGparse() also works with multiple references:</p>
+<p>osg_parse() also works with multiple references:</p>
 
-<div class="highlight highlight-source-r"><pre>OSGparse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>)</pre></div>
+<div class="highlight highlight-source-r"><pre>osg_parse(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">gridReference</span>)</pre></div>
 
-<h2>
-<a id="get-time-series-data" class="anchor" href="#get-time-series-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get time series data</h2>
+<h4>
+<a id="get-time-series-data" class="anchor" href="#get-time-series-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Get time series data</h4>
 
-<p>The first column of the table "someStations" contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo). </p>
+<p>The first column of the table "someStations" contains the id number. This can be used to retrieve time series data and convert waterml2 files to time series object (of class zoo).</p>
 
-<p>The National River Flow Archive serves two types of time series data:</p>
+<p>The National River Flow Archive serves two types of time series data: gauged daily flow and catchment mean rainfall.</p>
+
+<p>These time series can be obtained using the functions gdf() and cmr(), respectively. Both functions accept three inputs:</p>
 
 <ul>
-<li><p>Gauged Daily Flows (GDF)</p></li>
-<li><p>Catchment Mean Rainfall (CMR)</p></li>
+<li><p><code>id</code>, the station identification numbers (single string or character vector).</p></li>
+<li><p><code>metadata</code>, a logical variable (FALSE by default). If metadata is TRUE means that the result for a single station is a list with two elements: data (the time series) and meta (metadata).</p></li>
+<li><p><code>cl</code>, This is a cluster object, created by the parallel package. This is set to NULL by default, which sends sequential calls to the server.</p></li>
 </ul>
 
-<h3>
-<a id="gauged-daily-flows" class="anchor" href="#gauged-daily-flows" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Gauged Daily Flows</h3>
+<p>Here is how to retrieve mean rainfall (monthly) data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
 
-<p>Gauged Daily Flows can be obtained using the function GDF(). This accepts one input, the station id (as single string or character vector). 
-Here is how to retrieve daily flows for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch only time series data from the waterml2 service</span>
+<span class="pl-smi">info</span> <span class="pl-k">&lt;-</span> cmr(<span class="pl-v">id</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+plot(<span class="pl-smi">info</span>)
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch time series data from the waterml2 service</span>
-<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
-<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> GDFmeta(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
-plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Daily flow data for the<span class="pl-pds">"</span></span>, <span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>, <span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>),
-     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span>expression(<span class="pl-smi">m</span><span class="pl-k">^</span><span class="pl-c1">3</span><span class="pl-k">/</span><span class="pl-smi">s</span>))</pre></div>
+<span class="pl-c"># Fetch time series data and metadata from the waterml2 service</span>
+<span class="pl-smi">info</span> <span class="pl-k">&lt;-</span> cmr(<span class="pl-v">id</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>, <span class="pl-v">metadata</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
+plot(<span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Monthly rainfall data for the<span class="pl-pds">"</span></span>,
+                           <span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>,<span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>), 
+     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span><span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">units</span>)</pre></div>
 
-<h3>
-<a id="catchment-mean-rainfall" class="anchor" href="#catchment-mean-rainfall" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Catchment Mean Rainfall</h3>
+<p>Here is how to retrieve (daily) flow data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
 
-<p>Catchment Mean Rainfall can be obtained using the function CMR(). This accepts one input, the station id (as single string or character vector). 
-Here is how to retrieve rainfall data for <em>Shin at Lairg (id = 3001)</em> catchment.</p>
+<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch only time series data from the waterml2 service</span>
+<span class="pl-smi">info</span> <span class="pl-k">&lt;-</span> gdf(<span class="pl-v">id</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
+plot(<span class="pl-smi">info</span>)
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Fetch time series data from the waterml2 service</span>
-<span class="pl-smi">data</span> <span class="pl-k">&lt;-</span> CMR(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
-<span class="pl-smi">metadata</span> <span class="pl-k">&lt;-</span> CMRmeta(<span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>)
-plot(<span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Monthly rainfall data for the<span class="pl-pds">"</span></span>,<span class="pl-smi">metadata</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>,<span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>), 
-     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span>expression(<span class="pl-smi">mm</span>))</pre></div>
+<span class="pl-c"># Fetch time series data and metadata from the waterml2 service</span>
+<span class="pl-smi">info</span> <span class="pl-k">&lt;-</span> gdf(<span class="pl-v">id</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>3001<span class="pl-pds">"</span></span>, <span class="pl-v">metadata</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
+plot(<span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">data</span>, <span class="pl-v">main</span><span class="pl-k">=</span>paste(<span class="pl-s"><span class="pl-pds">"</span>Daily flow data for the<span class="pl-pds">"</span></span>,
+                           <span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>,<span class="pl-s"><span class="pl-pds">"</span>catchment<span class="pl-pds">"</span></span>), 
+     <span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>, <span class="pl-v">ylab</span><span class="pl-k">=</span><span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">units</span>)</pre></div>
 
-<h2>
-<a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple sites</h2>
+<h4>
+<a id="multiple-sites" class="anchor" href="#multiple-sites" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Multiple sites</h4>
 
-<p>Retrieving information for multiple sites becomes trivial:</p>
+<p>By default, the functions <code>getTS()</code> can be used to fetch time series data from multiple site in a sequential mode (using 1 core):</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Search data/metadata in the waterml2 service</span>
-<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> lapply(c(<span class="pl-c1">3001</span>,<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>),<span class="pl-smi">GDF</span>)
+<span class="pl-smi">s</span> <span class="pl-k">&lt;-</span> cmr(c(<span class="pl-c1">3002</span>,<span class="pl-c1">3003</span>), <span class="pl-v">metadata</span> <span class="pl-k">=</span> <span class="pl-c1">TRUE</span>)
 
-<span class="pl-c"># s is a list of 3 object (one object for each site)</span>
-<span class="pl-smi">firstSite</span>  <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">1</span>]]  <span class="pl-c"># s$ID3001</span>
-<span class="pl-smi">secondSite</span> <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]  <span class="pl-c"># s$ID3002</span>
-<span class="pl-smi">thirdSite</span>  <span class="pl-k">&lt;-</span> <span class="pl-smi">s</span>[[<span class="pl-c1">3</span>]]  <span class="pl-c"># s$ID3003</span>
-
-plot(<span class="pl-smi">secondSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>blue<span class="pl-pds">"</span></span>)
-lines(<span class="pl-smi">thirdSite</span>,<span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
-
-<h2>
-<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INTEROPERABILITY</h2>
+<span class="pl-c"># s is a list of 2 objects (one object for each site)</span>
+plot(<span class="pl-smi">s</span>[[<span class="pl-c1">1</span>]]<span class="pl-k">$</span><span class="pl-smi">data</span>, 
+     <span class="pl-v">main</span> <span class="pl-k">=</span> paste(<span class="pl-smi">s</span>[[<span class="pl-c1">1</span>]]<span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>, <span class="pl-s"><span class="pl-pds">"</span>and<span class="pl-pds">"</span></span>, <span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]<span class="pl-k">$</span><span class="pl-smi">meta</span><span class="pl-k">$</span><span class="pl-smi">stationName</span>))
+lines(<span class="pl-smi">s</span>[[<span class="pl-c1">2</span>]]<span class="pl-k">$</span><span class="pl-smi">data</span>, <span class="pl-v">col</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>green<span class="pl-pds">"</span></span>)</pre></div>
 
 <h3>
-<a id="upgrade-your-dataframe-to-a-datatable" class="anchor" href="#upgrade-your-dataframe-to-a-datatable" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Upgrade your data.frame to a data.table:</h3>
+<a id="interoperability" class="anchor" href="#interoperability" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interoperability</h3>
+
+<p>Upgrade your data.frame to a data.table:</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">DT</span>)
-datatable(<span class="pl-smi">allStations</span>[,c(<span class="pl-c1">1</span><span class="pl-k">:</span><span class="pl-c1">4</span>,<span class="pl-c1">7</span>,<span class="pl-c1">9</span>,<span class="pl-c1">10</span>,<span class="pl-c1">12</span><span class="pl-k">:</span><span class="pl-c1">14</span>,<span class="pl-c1">17</span>)])</pre></div>
+datatable(catalogue(<span class="pl-v">all</span><span class="pl-k">=</span><span class="pl-c1">FALSE</span>))</pre></div>
 
-<h3>
-<a id="create-interactive-maps-using-leaflet" class="anchor" href="#create-interactive-maps-using-leaflet" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Create interactive maps using leaflet:</h3>
+<p>Create interactive maps using leaflet:</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">leaflet</span>)
 
 leaflet(<span class="pl-v">data</span> <span class="pl-k">=</span> <span class="pl-smi">someStations</span>) %<span class="pl-k">&gt;</span>% addTiles() %<span class="pl-k">&gt;</span>%
   addMarkers(<span class="pl-k">~</span><span class="pl-smi">lon</span>, <span class="pl-k">~</span><span class="pl-smi">lat</span>, <span class="pl-v">popup</span> <span class="pl-k">=</span> <span class="pl-k">~</span>as.character(paste(<span class="pl-smi">id</span>,<span class="pl-smi">name</span>)))</pre></div>
 
-<h3>
-<a id="interactive-plots-using-dygraphs" class="anchor" href="#interactive-plots-using-dygraphs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Interactive plots using dygraphs:</h3>
+<p>Interactive plots using dygraphs:</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">dygraphs</span>)
-dygraph(<span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
+dygraph(<span class="pl-smi">info</span><span class="pl-k">$</span><span class="pl-smi">data</span>) %<span class="pl-k">&gt;</span>% dyRangeSelector()</pre></div>
 
-<h3>
-<a id="parallel-processing" class="anchor" href="#parallel-processing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Parallel processing:</h3>
-
-<p>A simple benchmark test</p>
+<p>Sequential vs Concurrent requests: a simple benchmark test</p>
 
 <div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">parallel</span>)
 <span class="pl-c"># Use detectCores() to find out many cores are available on your machine</span>
+<span class="pl-smi">cl</span> <span class="pl-k">&lt;-</span> makeCluster(getOption(<span class="pl-s"><span class="pl-pds">"</span>cl.cores<span class="pl-pds">"</span></span>, detectCores()))
 
-<span class="pl-c"># Filter all the stations with a minimum of 100 years of recordings</span>
-<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-v">minRec</span> <span class="pl-k">=</span> <span class="pl-c1">94</span>)</pre></div>
+<span class="pl-c"># Filter all the stations within the above bounding box</span>
+<span class="pl-smi">someStations</span> <span class="pl-k">&lt;-</span> catalogue(<span class="pl-smi">bbox</span>)
 
-<p>1 core vs multiple cores </p>
+<span class="pl-c"># Get flow data with a sequential approach</span>
+system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> gdf(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-v">cl</span> <span class="pl-k">=</span> <span class="pl-c1">NULL</span>) )
 
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Get flow data with a sequential approach</span>
-system.time( <span class="pl-smi">s1</span> <span class="pl-k">&lt;-</span> GDF(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>) )</pre></div>
-
-<div class="highlight highlight-source-r"><pre><span class="pl-c"># Get flow data with a parallel approach</span>
-system.time( <span class="pl-smi">s2</span> <span class="pl-k">&lt;-</span> mclapply(<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-smi">GDF</span>, <span class="pl-v">mc.cores</span> <span class="pl-k">=</span> detectCores()) )  </pre></div>
+<span class="pl-c"># Get flow data with a concurrent approach (using `parLapply()`)</span>
+system.time( <span class="pl-smi">s2</span> <span class="pl-k">&lt;-</span> gdf(<span class="pl-v">id</span> <span class="pl-k">=</span> <span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">id</span>, <span class="pl-v">cl</span> <span class="pl-k">=</span> <span class="pl-smi">cl</span>) )  </pre></div>
 
 <p>The measured flows are expected to increase with the catchment area. Let's show this simple regression on a plot:</p>
 
 <div class="highlight highlight-source-r"><pre><span class="pl-c"># Calculate the mean flow for each catchment</span>
-<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">meanGDF</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">s2</span>, <span class="pl-smi">mean</span>) )
+<span class="pl-smi">someStations</span><span class="pl-k">$</span><span class="pl-smi">meangdf</span> <span class="pl-k">&lt;-</span> unlist( lapply(<span class="pl-smi">s2</span>, <span class="pl-smi">mean</span>) )
 
 <span class="pl-c"># Linear model</span>
 library(<span class="pl-smi">ggplot2</span>)
-ggplot(<span class="pl-smi">someStations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meanGDF</span>)) <span class="pl-k">+</span> 
+ggplot(<span class="pl-smi">someStations</span>, aes(<span class="pl-v">x</span> <span class="pl-k">=</span> as.numeric(<span class="pl-smi">catchmentArea</span>), <span class="pl-v">y</span> <span class="pl-k">=</span> <span class="pl-smi">meangdf</span>)) <span class="pl-k">+</span> 
   geom_point() <span class="pl-k">+</span>
   stat_smooth(<span class="pl-v">method</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>lm<span class="pl-pds">"</span></span>, <span class="pl-v">col</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>red<span class="pl-pds">"</span></span>) <span class="pl-k">+</span>
   xlab(expression(paste(<span class="pl-s"><span class="pl-pds">"</span>Catchment area [Km^2]<span class="pl-pds">"</span></span>,<span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>))) <span class="pl-k">+</span> 
   ylab(expression(paste(<span class="pl-s"><span class="pl-pds">"</span>Mean flow [m^3/s]<span class="pl-pds">"</span></span>,<span class="pl-v">sep</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>)))</pre></div>
 
-<h1>
-<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terms and Conditions</h1>
+<h3>
+<a id="terms-and-conditions" class="anchor" href="#terms-and-conditions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terms and Conditions</h3>
 
 <p>Please refer to the following Terms and Conditions for use of NRFA Data and disclaimer: <a href="http://nrfa.ceh.ac.uk/costs-terms-and-conditions">http://nrfa.ceh.ac.uk/costs-terms-and-conditions</a></p>
 
 <p>This package uses a non-public API which is likely to change. Package and functions herein are provided as is, without any guarantee.</p>
 
-<h1>
-<a id="leave-your-feedback" class="anchor" href="#leave-your-feedback" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Leave your feedback</h1>
+<p>Please note that this project is released with a <a href="CONDUCT.md">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms.</p>
 
-<p>I would greatly appreciate if you could leave your feedbacks either via email (<a href="mailto:cvitolodev@gmail.com">cvitolodev@gmail.com</a>) or taking a short survey (<a href="https://www.surveymonkey.com/s/GTGH8RX">https://www.surveymonkey.com/s/GTGH8RX</a>).</p>
+<h3>
+<a id="meta" class="anchor" href="#meta" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Meta</h3>
+
+<ul>
+<li>  Please <a href="https://github.com/cvitolo/rnrfa/issues">report any issues or bugs</a>.</li>
+<li>  License: <a href="https://opensource.org/licenses/GPL-3.0">GPL-3</a>
+</li>
+<li>  Get citation information for <code>rnrfa</code> in R doing <code>citation(package = 'rnrfa')</code>
+</li>
+</ul>
         </section>
 
         <aside id="sidebar">
